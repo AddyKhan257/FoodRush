@@ -1,0 +1,77 @@
+version: '3.9'
+
+volumes:
+  postgres_data_dev:
+
+networks:
+  foodrush_dev:
+    driver: bridge
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: foodrush_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: foodrush_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    networks:
+      - foodrush_dev
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      target: builder
+    container_name: foodrush_backend_dev
+    restart: unless-stopped
+    command: npm run dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: foodrush_db
+      DB_USER: postgres
+      DB_PASSWORD: password
+      JWT_SECRET: dev_jwt_secret_not_for_production
+      FRONTEND_URL: http://localhost:3000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - foodrush_dev
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: node:20-alpine
+    container_name: foodrush_frontend_dev
+    working_dir: /app
+    command: sh -c "npm install && npm start"
+    environment:
+      REACT_APP_API_URL: http://localhost:5000/api
+      CHOKIDAR_USEPOLLING: "true"
+      WDS_SOCKET_HOST: localhost
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - foodrush_dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
