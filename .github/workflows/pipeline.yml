@@ -1,16 +1,14 @@
 name: FoodRush DevSecOps Pipeline
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs: 
   code-quality:
     runs-on: ubuntu-latest
     steps:
-      - name: 
-        uses:
+      - name: code-quality
+        uses: actions/checkout@v4
+        
 
 
