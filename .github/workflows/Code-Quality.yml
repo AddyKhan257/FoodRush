@@ -1,0 +1,16 @@
+# Linting and SAST scan
+
+name: Code quality 
+
+on:
+  workflow_dispatch:
+
+jobs: 
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: code-quality
+        uses: actions/checkout@v4r
+        
+
+
