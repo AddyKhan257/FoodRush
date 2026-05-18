@@ -39,9 +39,6 @@ jobs:
     needs: backend-ci
     runs-on: ubuntu-latest
 
-    env:
-      IMAGE_NAME: ${{ vars.DOCKERHUB_USER }}/foodrush-app
-
     steps:
 
       - name: code checkout
@@ -53,16 +50,13 @@ jobs:
           username: ${{ vars.DOCKERHUB_USER }} 
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Debug variable
-        run:  echo "${{ env.IMAGE_NAME }}"
-
       - name: Build & Push to dockerhub
         uses: docker/build-push-action@v6
         with:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          tags: foodrush-app-latest
 
         
     
