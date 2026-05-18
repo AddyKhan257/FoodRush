@@ -45,6 +45,9 @@ jobs:
       - name: code checkout
         uses: actions/checkout@v4
 
+      - name: Set IMAGE_NAME
+        run: echo "IMAGE_NAME=${{ vars.DOCKERHUB_USER }}/foodrush-app" >> $GITHUB_ENV  
+
       - name: setup node.js
         uses: actions/setup-node@v4
         with:
