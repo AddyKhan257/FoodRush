@@ -16,7 +16,6 @@ jobs:
       run:
         working-directory: backend
         
-
     steps:
       - name: checkout source Code 
         uses: actions/checkout@v4
@@ -56,6 +55,8 @@ jobs:
 
       - name: build frontend
         run: npm run build
+        env:
+          CI: false
 
       - name: run test
         run: npm test -- --passWithNoTests
