@@ -50,13 +50,17 @@ jobs:
           username: ${{ vars.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Debug variable
+        run: echo "${{ vars.DOCKERHUB_USER }}"
+
       - name: Build & Push to dockerhub
         uses: docker/build-push-action@v6
         with:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ vars.DOCKERHUB_USER }}/foodrush-app:latest
+          tags: "${{ vars.DOCKERHUB_USER }}/foodrush-app:${{ github.sha }}"
+
         
     
 
