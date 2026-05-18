@@ -35,9 +35,38 @@ jobs:
       - name: run test
         run: npm test -- --passWithNoTests
 
-  docker-build-push:
-    needs: backend-ci
+
+  frontend-ci:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v4
+
+      - name: setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      - name: Install dependencies
+        run: npm ci
+
+      - name: build frontend
+        run: npm run build
+
+      - name: run test
+        run: npm test -- --passWithNoTests
+
+
+  docker-build-push:
+    needs: [backend-ci,frontend-ci]
+    runs-on: ubuntu-latest
+     
+    env:
+      IMAGE_NAME: "${{ vars.DOCKERHUB_USER }}/foodrush-app"
 
     steps:
 
@@ -50,13 +79,25 @@ jobs:
           username: ${{ vars.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build & Push to dockerhub
+      - name: Build & Push to dockerhub backend
         uses: docker/build-push-action@v6
         with:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: mohammadadnankhan/foodrush-app:latest
+          tags: |
+            ${{ env.IMAGE_NAME }}-backend:latest
+            ${{ env.IMAGE_NAME }}-backend:${{ github.sha }}
+
+      - name: Build & Push to dockerhub frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}-frontend:latest
+            ${{ env.IMAGE_NAME }}-frontend:${{ github.sha }}
 
         
     
