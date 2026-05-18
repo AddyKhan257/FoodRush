@@ -59,7 +59,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: "${{ vars.DOCKERHUB_USER }}/foodrush-app:${{ github.sha }}"
+          tags: ${{ vars.DOCKERHUB_USER }}/foodrush-app:${{ github.sha }}
 
         
     
