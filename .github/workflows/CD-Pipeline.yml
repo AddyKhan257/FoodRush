@@ -15,6 +15,9 @@ jobs:
         steps:
             - name: code checkout
               uses: actions/checkout@v4
+
+            - name: login to dockerhub
+              run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ vars.DOCKERHUB_USER }}" --password-stdin
             
             - name: deploy with docker compose
               working-directory: /home/ddrtk/FoodRush
