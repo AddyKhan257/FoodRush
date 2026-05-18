@@ -1,6 +1,6 @@
 # 🍔 FoodRush — Full-Stack Food Delivery App
 
-> A production-ready, Zomato-inspired food delivery platform builts for DevOps learning.  
+> A production-ready, Zomato-inspired food delivery platform built for DevOps learning.  
 > React + Node.js + PostgreSQL, fully Dockerized with CI/CD pipelines.
 
 ---
