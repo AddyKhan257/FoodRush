@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: "${{ vars.DOCKERHUB_USER }}/foodrush-app"
+      IMAGE_NAME: ${{ vars.DOCKERHUB_USER }}/foodrush-app
 
     steps:
 
