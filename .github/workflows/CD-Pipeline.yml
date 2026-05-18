@@ -1,0 +1,25 @@
+name: FoodRush CD
+
+on:
+    workflow_run:
+        workflows: ["FoodRush CI"]
+        types: [completed]
+        branches:
+            - main
+
+jobs:
+    deploy:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: self-hosted
+
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4
+            
+            - name: deploy with docker compose
+              working-directory: /home/ddrtk/FoodRush
+              run:  docker compose down && docker compose up -d --build --force-recreate
+
+            - name: verify containers running
+              run: docker ps
+
