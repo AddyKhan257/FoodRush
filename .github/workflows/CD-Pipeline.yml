@@ -21,7 +21,7 @@ jobs:
             
             - name: deploy with docker compose
               working-directory: /home/ddrtk/FoodRush
-              run:  docker compose down && docker compose up -d --build --force-recreate
+              run:  docker compose pull && docker compose down && docker compose up -d --force-recreate
 
             - name: verify containers running
               run: docker ps -a
