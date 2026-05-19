@@ -73,7 +73,7 @@ jobs:
       
       - name: Set IMAGE_NAME
         run: |
-           echo "IMAGE_NAME=$DOCKERHUB_USER/foodrush-app" >> $GITHUB_ENV
+          echo "IMAGE_NAME=$DOCKERHUB_USER/foodrush-app" >> $GITHUB_ENV
         env: 
           DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
   
