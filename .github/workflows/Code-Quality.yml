@@ -1,16 +1,46 @@
-# Linting and SAST scan
+# Linting and Audit scan
 
 name: Code quality 
 
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs: 
   code-quality:
     runs-on: ubuntu-latest
     steps:
-      - name: code-quality
+      - name: code-checkout
         uses: actions/checkout@v4
+      
+      - name: setup node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install backend depedencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Run ESlint on backend
+        run: npm run lint
+        working-directory: backend
+      
+      - name: Run npm audit on backend
+        run: npm audit --audit-level=high
+        working-directory: backend
+
+      - name: Install frontend depedencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Run ESlint on frontend
+        run: npm run lint
+        working-directory: frontend 
+
+      - name: Run npm audit on frontend
+        run: npm audit --audit-level=high
+        working-directory: frontend
+      
+      
         
 
 
