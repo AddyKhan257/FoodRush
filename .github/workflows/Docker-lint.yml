@@ -1,2 +1,9 @@
 # scan the docker file for CVEs
 name: Docker lint
+
+on:
+  workflow_call:
+
+jobs:
+  docker-lint:
+    runs-on: 
