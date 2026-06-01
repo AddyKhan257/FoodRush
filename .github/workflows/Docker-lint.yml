@@ -1,4 +1,4 @@
-# scan the docker file for CVEs
+# Linting Dockerfiles using hadolint actions
 name: Docker lint
 
 on:
