@@ -1,3 +1,4 @@
+# Build and push docker image to the docker hub
 name: Build and push docker images
 on:
   workflow_call:
@@ -37,4 +38,3 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}-frontend:latest
             ${{ env.IMAGE_NAME }}-frontend:${{ github.sha }}
-            
