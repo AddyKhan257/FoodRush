@@ -2,4 +2,22 @@
 name: Deploy To Server  
 on:
   workflow_call:
+
+jobs:
+  self-hosted:
+    runs-on: self-hosted
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v4
+      
+      - name: login to dockerhub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ vars.DOCKERHUB_USER }}" --password-stdin
+            
+      - name: deploy with docker compose
+        working-directory: /home/ddrtk/FoodRush
+        run:  docker compose pull && docker compose down && docker compose up -d --force-recreate
+
+      - name: verify containers running
+        run: docker ps -a
+
   
