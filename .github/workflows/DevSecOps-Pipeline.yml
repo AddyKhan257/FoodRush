@@ -1,1 +1,40 @@
+# used to call other yml file to run pipeline
 name: DevSecOps End to End Pipeline
+
+on:
+  push:
+    branches: [main]
+  
+  pull_request:
+    branches: [main]
+
+jobs:
+  code-quality:
+    uses: ./.github/workflows/Code-Quality.yml
+
+  secrets-scan:
+    needs: code-quality
+    uses: ./.github/workflows/Secrets-scan.yml
+
+  docker-lint:
+    needs: secrets-scan
+    uses: ./.github/workflows/Docker-lint.yml
+
+  build-and-push:
+    needs: docker-lint
+    uses: ./.github/workflows/Build-And-Push.yml
+
+  image-scan:
+    needs: build-and-push
+    uses: ./.github/workflows/Image-Scan.yml
+
+  dependency-scan:
+    needs: image-scan
+    uses: ./.github/workflows/Dependency-scan.yml
+
+  deploy:
+    needs: dependency-scan
+    uses: ./.github/workflows/Deploy-to-server.yml
+  
+
+
