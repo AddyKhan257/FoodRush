@@ -40,8 +40,5 @@ jobs:
         working-directory: frontend
         run: npm audit --audit-level=high
         
-      
-      
-        
 
 
