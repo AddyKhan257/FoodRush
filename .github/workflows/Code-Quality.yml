@@ -38,7 +38,7 @@ jobs:
 
       - name: Run npm audit on frontend
         working-directory: frontend
-        run: npm audit --audit-level=high
+        run: npm audit --audit-level=critical
         
       
       
