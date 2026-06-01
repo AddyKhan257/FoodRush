@@ -30,9 +30,9 @@ jobs:
         
       - name: Build & Push to dockerhub frontend
         uses: docker/build-push-action@v6
-        with: 
+        with:
           context: ./frontend
-          file: ./frontend/Dockerfile
+          file: ./frontend/dockerfile
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}-frontend:latest
