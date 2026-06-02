@@ -23,10 +23,12 @@ jobs:
   build-and-push:
     needs: docker-lint
     uses: ./.github/workflows/Build-And-Push.yml
+    secrets: inherit
 
   image-scan:
     needs: build-and-push
     uses: ./.github/workflows/Image-Scan.yml
+    secrets: inherit
 
   dependency-scan:
     needs: image-scan
@@ -35,6 +37,7 @@ jobs:
   deploy:
     needs: dependency-scan
     uses: ./.github/workflows/Deploy-to-server.yml
+    secrets: inherit
   
 
 
