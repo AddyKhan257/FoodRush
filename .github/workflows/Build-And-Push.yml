@@ -38,3 +38,4 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}-frontend:latest
             ${{ env.IMAGE_NAME }}-frontend:${{ github.sha }}
+            
