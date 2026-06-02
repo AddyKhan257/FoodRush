@@ -15,7 +15,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: scan backend image
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: mohammadadnankhan/foodrush-app-backend:latest
           format: table
