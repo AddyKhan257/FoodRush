@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ArrowRight, Flame, Clock, Shield } from 'lucide-react';
+import { Search, ArrowRight, Flame } from 'lucide-react';
 import api from '../utils/api';
 import RestaurantCard from '../components/RestaurantCard';
 
@@ -192,6 +192,76 @@ export default function HomePage() {
           </button>
         </div>
       </section>
+
+      {/* ── Footer ───────────────────────────────────────────────────── */}
+      <footer style={{
+        background: '#0f0f0f',
+        borderTop: '1px solid rgba(255,107,53,0.3)',
+        padding: '40px 0',
+        textAlign: 'center',
+      }}>
+        <div className="container">
+          <p style={{
+            fontSize: '1.4rem',
+            fontWeight: 800,
+            color: '#ff6b35',
+            marginBottom: 12,
+            letterSpacing: '-0.5px',
+          }}>
+            🚀 FoodRush
+          </p>
+          <p style={{
+            color: '#aaa',
+            fontSize: '0.95rem',
+            marginBottom: 6,
+          }}>
+            Designed & Developed by{' '}
+            <strong style={{ color: '#ffffff' }}>Mohammad Adnan Khan</strong>
+          </p>
+          <p style={{
+            color: '#555',
+            fontSize: '0.82rem',
+            marginBottom: 20,
+          }}>
+            Built with React • Node.js • PostgreSQL • Docker • GitHub Actions DevSecOps Pipeline
+          </p>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 12,
+            flexWrap: 'wrap',
+          }}>
+            {[
+              { label: '⚛️ React 18' },
+              { label: '🟢 Node.js 20' },
+              { label: '🐘 PostgreSQL 15' },
+              { label: '🐳 Docker' },
+              { label: '🔐 DevSecOps' },
+              { label: '⚙️ GitHub Actions' },
+            ].map((tag) => (
+              <span key={tag.label} style={{
+                background: 'rgba(255,107,53,0.1)',
+                border: '1px solid rgba(255,107,53,0.3)',
+                color: '#ff6b35',
+                padding: '4px 12px',
+                borderRadius: 20,
+                fontSize: '0.78rem',
+                fontWeight: 600,
+              }}>
+                {tag.label}
+              </span>
+            ))}
+          </div>
+          <p style={{
+            color: '#333',
+            fontSize: '0.75rem',
+            marginTop: 20,
+          }}>
+            © 2026 FoodRush — All rights reserved
+          </p>
+        </div>
+      </footer>
+
     </>
   );
 }
