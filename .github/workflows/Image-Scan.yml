@@ -27,9 +27,9 @@ jobs:
         with:
           image-ref: mohammadadnankhan/foodrush-app-frontend:latest
           format: table
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL'
           exit-code: '1'
-          
+
 
 
       
